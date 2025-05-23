@@ -30,6 +30,10 @@ function getPredictions() {
 }
 
 function draw() {
+  // 左右翻轉畫面
+  push();
+  translate(width, 0);
+  scale(-1, 1);
   image(video, 0, 0, width, height);
 
   if (predictions.length > 0) {
@@ -43,6 +47,7 @@ function draw() {
       const [x, y] = keypoints[idx];
       vertex(x, y);
     }
-    endShape();
+    endShape(CLOSE); // 讓嘴巴線條閉合
   }
+  pop();
 }
