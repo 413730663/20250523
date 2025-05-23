@@ -1,7 +1,6 @@
 let video;
 let facemesh;
 let predictions = [];
-// 指定要連線的點位
 const indices = [409,270,269,267,0,37,39,40,185,61,146,91,181,84,17,314,405,321,375,291];
 
 function setup() {
@@ -36,7 +35,6 @@ function draw() {
     stroke(255, 0, 0);
     strokeWeight(15);
     noFill();
-    // 用 line 指令將所有點串接
     for (let i = 0; i < indices.length - 1; i++) {
       const idxA = indices[i];
       const idxB = indices[i + 1];
