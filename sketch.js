@@ -13,24 +13,18 @@ function setup() {
   video.hide();
 
   facemesh = ml5.faceMesh(video, modelReady);
+  facemesh.on('predict', results => {
+    if (results && results.length > 0) {
+      predictions = results;
+    }
+  });
 }
 
 function modelReady() {
   console.log('Facemesh model loaded!');
-  getPredictions();
-}
-
-function getPredictions() {
-  facemesh.predict(video, (err, results) => {
-    if (results && results.length > 0) {
-      predictions = results;
-    }
-    getPredictions(); // 持續取得預測
-  });
 }
 
 function draw() {
-  // 左右翻轉畫面
   push();
   translate(width, 0);
   scale(-1, 1);
@@ -47,7 +41,7 @@ function draw() {
       const [x, y] = keypoints[idx];
       vertex(x, y);
     }
-    endShape(CLOSE); // 讓嘴巴線條閉合
+    endShape(CLOSE);
   }
   pop();
 }
