@@ -13,13 +13,20 @@ function setup() {
   video.hide();
 
   facemesh = ml5.faceMesh(video, modelReady);
-  facemesh.on('predict', results => {
-    predictions = results;
-  });
 }
 
 function modelReady() {
   console.log('Facemesh model loaded!');
+  getPredictions();
+}
+
+function getPredictions() {
+  facemesh.predict(video, (err, results) => {
+    if (results && results.length > 0) {
+      predictions = results;
+    }
+    getPredictions(); // 持續取得預測
+  });
 }
 
 function draw() {
